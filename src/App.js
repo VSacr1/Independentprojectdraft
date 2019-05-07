@@ -39,6 +39,7 @@ class App extends Component {
                 <ButtonGroup className="mr-2" aria-label="First group">
                   <Button variant = "secondary"><Link to= "/Login" style ={{color:'white'}}>Log in</Link></Button>
                   <Button variant = "secondary"><Link to="/SignUp" style = {{color: 'white'}}>Sign up</Link></Button>
+                  <Button variant = "secondary"><Link to="/Login" style ={{color:'white'}}>Logout</Link></Button>
                 </ButtonGroup>
               </ButtonToolbar> 
             </Row>

@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import './App.css'
-import { BrowserRouter as Router, Route, NavLink, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, NavLink, Link, Switch, Redirect } from "react-router-dom";
 import React, { Component } from 'react';
 import Todo from './Todo.js';
 import SignUp from './SignUp.js';
@@ -17,7 +17,10 @@ export default class Login extends Component {
                 username: '',
                 password: '',
                 error: null,
+               
+                
         }
+        this.state = { redirect: false  }
     }
 
     onSubmitHandle = (e) => {
@@ -25,18 +28,25 @@ export default class Login extends Component {
         const { 
             username: { value: username = '' } = {},
             password: { value: password = '' } = {} 
+           
         } = e.target;
+         
 
         fetch(`http://localhost:8080/api/v1/users/login?username=${username}&password=${password}`).then(results => 
-        {
+        { 
+          
             return results.json();
-
+            
 
         }).catch( (err) => {
             console.warn('Wrong password');
+
         }).then(data => {
            console.log(data); 
+            this.setState({ redirect: true }); 
+            
         });
+        
         
 
     }
@@ -44,6 +54,10 @@ export default class Login extends Component {
 
 
     render() {
+        if(this.state.redirect === true)
+            {
+                return <Redirect to="/Todo"/> 
+            }
         return (
             <nav>
                 <Router>
@@ -52,13 +66,17 @@ export default class Login extends Component {
                         <form onSubmit={this.onSubmitHandle}>
                             <input id="username" type="text" name="username" className="username" placeholder="user"  />
                             <input id="password" type="password" name="pass" className="pass" placeholder="password" />
-                            <button type="submit">Signin</button>  
+                            <button type="submit" onClick={this.onSubmitHandle}>Signin</button>  
                         </form>
-                        <button>Sign Up</button>
+                        <button><Link to="/SignUp">Sign Up</Link></button>
                     </div>
-
-                    <Route exact path="/Todo" component={Todo} />
+                
+                <Switch> 
+                    <Route path="/SignUp" component = {SignUp} />
+                </Switch> 
                 </Router>
+
+                
             </nav>
         )
     }

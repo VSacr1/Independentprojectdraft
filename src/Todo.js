@@ -1,7 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { Component } from 'react';
+import {Row, Col, Container} from 'react-bootstrap';
 // import './App.css'
 import { Button } from 'react-bootstrap';
+
+import {DatePicker} from 'react-bootstrap'; 
 
  let counter = 0;
  let uniqueid = counter++;
@@ -18,7 +21,7 @@ export default class Todo extends Component {
                 id: 0,
                 item: 'Enter a task here',
                 complete: false, 
-                dateSet: 'Testing',
+                dateSet: ''
             }]
           
         }
@@ -39,7 +42,7 @@ export default class Todo extends Component {
     
     //C
     onSubmitHandle = (event) => {
-        //event.preventDefault();
+        event.preventDefault();
         fetch('http://localhost:8080/api/v1/todo', {
             method:'POST',
             headers: {
@@ -87,7 +90,7 @@ export default class Todo extends Component {
                 id: id,
                 item: this.state.toDoData[number].item,
                 complete: !this.state.toDoData.complete,
-                // dateSet: this.state.date,
+                dateSet: this.state.toDoData.date,
             })
         });
 
@@ -109,14 +112,6 @@ export default class Todo extends Component {
         });
         
     }
-
-    //On change function? 
-    // onChange = (e) =>
-    // {
-    //     this.setState.mockData({
-    //         [e.target.id]: e.target.value
-    //     }); 
-    // }
     
      render()
     {
@@ -126,14 +121,14 @@ export default class Todo extends Component {
                 <div className= "input">
                     <form onSubmit={this.onSubmitHandle}>
                         <input id = "list" type= "text" name="list" className="list" placeholder = "write to do list here"/>
-                        <input type = "text" name="date" className="date" placeholder = "write date here" />
-                        <Button variant="secondary" size="lg" className = "button-add">Add</Button>
+                        <input type = "date" name="date" className="date" />
+                        <button variant="secondary" size="lg" className = "button-add">Add</button>
                     </form>
                 </div>
                 
 
                 <div className = "tasks">
-                    <h3 id = "listheading"> List </h3> 
+                    <h3 id = "listheading"> Current tasks </h3> 
                     {this.state.toDoData.map((list, number) => (
                         <li id = "mainlist" key={list.id}>
                         {/* {list.id + " "}  */}
