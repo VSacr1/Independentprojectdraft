@@ -1,10 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { Component } from 'react';
 import {Row, Col, Container} from 'react-bootstrap';
+
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import {  Link, Switch } from 'react-router-dom'
 // import './App.css'
 import { Button } from 'react-bootstrap';
 
 import {DatePicker} from 'react-bootstrap'; 
+
+import Login from './Login.js'
 
  let counter = 0;
  let uniqueid = counter++;
@@ -42,7 +47,7 @@ export default class Todo extends Component {
     
     //C
     onSubmitHandle = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
         fetch('http://localhost:8080/api/v1/todo', {
             method:'POST',
             headers: {
@@ -140,6 +145,15 @@ export default class Todo extends Component {
                         </li> 
                      ))}
 
+                </div> 
+
+                <div class = "signout">
+                    <Router>
+                        <button variant = "secondary"><Link to="/Login">Logout</Link></button>
+                        <Switch>
+                            <Route path="/Login" component = {Login} />
+                        </Switch> 
+                    </Router> 
                 </div> 
                 
             </div> 
