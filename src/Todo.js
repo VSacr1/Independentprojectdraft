@@ -90,7 +90,7 @@ export default class Todo extends Component {
                 id: id,
                 item: this.state.toDoData[number].item,
                 complete: !this.state.toDoData.complete,
-                dateSet: this.state.toDoData.date,
+                dateSet: 'Completed'
             })
         });
 
@@ -132,15 +132,16 @@ export default class Todo extends Component {
                     {this.state.toDoData.map((list, number) => (
                         <li id = "mainlist" key={list.id}>
                         {/* {list.id + " "}  */}
-                        {list.item + " "}
-                        {list.complete + " "}
-                        {list.dateSet + " "}
+                        <p>Task: {" " + list.item + " "}</p>
+                        <p>this task completed: {" " +list.complete + " "}</p>
+                        <p>Complete by: {" " + list.dateSet + " "}</p>
                         <button onClick = {() => this.onDeleteHandle(list.id)}>Delete</button>
                         <button id={number} className = {list.id} onClick = {this.onCompleteHandle}>Complete</button>
                         </li> 
                      ))}
 
                 </div> 
+                
             </div> 
         )
     }

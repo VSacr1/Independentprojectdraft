@@ -10,6 +10,7 @@ let uniqueid = counter++;
 
 export default class SignUp extends Component
 {
+    
 
     constructor(props)
     {

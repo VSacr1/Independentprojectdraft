@@ -16,8 +16,6 @@ export default class Login extends Component {
                 id: '',
                 username: '',
                 password: '',
-                error: null,
-               
                 
         }
         this.state = { redirect: false  }
@@ -25,32 +23,33 @@ export default class Login extends Component {
 
     onSubmitHandle = (e) => {
         e.preventDefault(); 
-        const { 
-            username: { value: username = '' } = {},
-            password: { value: password = '' } = {} 
-           
-        } = e.target;
-         
+        let username = e.target.username.value;  
+        let password = e.target.password.value;     
+
+        console.log(username)
+        console.log(password); 
 
         fetch(`http://localhost:8080/api/v1/users/login?username=${username}&password=${password}`).then(results => 
         { 
-          
             return results.json();
-            
-
-        }).catch( (err) => {
-            console.warn('Wrong password');
 
         }).then(data => {
-           console.log(data); 
             this.setState({ redirect: true }); 
             
-        });
+        }).catch( (err) => {
+            console.warn('Wrong password');
         
-        
+
+        }); 
 
     }
 
+    onSubmitChange = (e) =>
+    {
+        this.setState({
+            [e.target.username]: e.target.value,
+        })
+    }
 
 
     render() {
@@ -64,9 +63,9 @@ export default class Login extends Component {
                     <div id="Login">
                         <h2> Login</h2>
                         <form onSubmit={this.onSubmitHandle}>
-                            <input id="username" type="text" name="username" className="username" placeholder="user"  />
-                            <input id="password" type="password" name="pass" className="pass" placeholder="password" />
-                            <button type="submit" onClick={this.onSubmitHandle}>Signin</button>  
+                            <input id="username" type="text" name="username" className="username" placeholder="enter username"  />
+                            <input id="password" type="password" name="pass" className="pass" placeholder="enter password" />
+                            <button type="submit" onClick={this.onSubmitChange}>Signin</button>  
                         </form>
                         <button><Link to="/SignUp">Sign Up</Link></button>
                     </div>
