@@ -1,3 +1,5 @@
+This repository shows the process that I went through with this project this is not the final version
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
